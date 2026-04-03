@@ -21,6 +21,19 @@ public class Polisa {
         this.czyBezszkodowyKlient=czyBezszkodowyKlient;
         liczbaUtworzonychPolis++;
     }
+
+    public String getNumerPolisy() {
+        return numerPolisy;
+    }
+
+    public double getSkladkaBazowa() {
+        return skladkaBazowa;
+    }
+
+    public int getPoziomRyzyka() {
+        return poziomRyzyka;
+    }
+
     public double obliczSkladkeKoncowa(){
         double skladkaKoncowa=this.skladkaBazowa+(this.poziomRyzyka*120);
         if(this.wartoscPojazdu>150000){
@@ -104,7 +117,7 @@ public class Polisa {
                 +" Poziom ryzyka: "+poziomRyzyka
                 +" WartoscPojazdu: "+wartoscPojazdu
                 +" Czy ma alarm: "+czyMaAlarm
-                +"Czy bezszkodowy: "+czyBezszkodowyKlient;
+                +" Czy bezszkodowy: "+czyBezszkodowyKlient;
     }
     @Override
     public boolean equals(Object o){
