@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Polisa {
     private String numerPolisy;
     private String klient;
@@ -64,6 +66,54 @@ public class Polisa {
         return (double) Math.round(skladkaOdnowienia * 100) /100;
     }
     public String pobierzPodsumowanieRyzyka(){
+        String podsumowanieRyzyka="";
+        double mnoznik=1.0;
+        if(poziomRyzyka<4){
+            podsumowanieRyzyka+="Ryzyko niskie, ";
+        } else if(poziomRyzyka==4){
+            podsumowanieRyzyka+="Ryzyko srednie, ";
+            mnoznik*=1.1;
+        } else{
+            podsumowanieRyzyka+="Ryzyko wysokie, ";
+            mnoznik*=1.2;
+        }
+        if(czyBezszkodowyKlient){
+            podsumowanieRyzyka+="bezszkodowy, ";
+            mnoznik*=0.92;
+        } else {
+            podsumowanieRyzyka+="z szkodami, ";
+        }
+        if(czyMaAlarm){
+            podsumowanieRyzyka+="posiada alarm, ";
+            mnoznik*=0.95;
+        } else {
+            podsumowanieRyzyka+="nie posiada alarmu, ";
+        }
+        podsumowanieRyzyka+="mnoznik calkowity: "+mnoznik;
+        return podsumowanieRyzyka;
+    }
+    public static int pobierzLiczbeUtworzonychPolis(){
+        return liczbaUtworzonychPolis;
+    }
 
+    @Override
+    public String toString() {
+        return "NumerPolisy: "+numerPolisy
+                + " Klient: "+klient
+                + " Skladka bazowa: "+skladkaBazowa
+                +" Poziom ryzyka: "+poziomRyzyka
+                +" WartoscPojazdu: "+wartoscPojazdu
+                +" Czy ma alarm: "+czyMaAlarm
+                +"Czy bezszkodowy: "+czyBezszkodowyKlient;
+    }
+    @Override
+    public boolean equals(Object o){
+        if(o == null || getClass() != o.getClass()) return false;
+        Polisa that = (Polisa) o;
+        return Objects.equals(numerPolisy, that.numerPolisy);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(numerPolisy);
     }
 }
